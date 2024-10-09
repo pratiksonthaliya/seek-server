@@ -7,7 +7,11 @@ app.use(cors({
   origin: 'http://localhost:5173',
 }))
 
-app.post('/', async (req, res) => {
+app.get('/', (req, res) => {  
+  res.status(200).send('Server is working fine.');
+});
+
+app.post('/api', async (req, res) => {
   const {prompt} = req.body;
 
   const response = await fetch("https://www.blackbox.ai/api/chat", {
@@ -51,7 +55,7 @@ app.post('/', async (req, res) => {
   res.status(200).send({response: data});
 });
 
-app.post('/continue', async (req, res) => {
+app.post('/api/continue', async (req, res) => {
   const {prompt, content} = req.body;
   const continueResponse = await fetch("https://www.blackbox.ai/api/chat", {
     "headers": {
